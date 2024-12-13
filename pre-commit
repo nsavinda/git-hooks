@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# Redirect output to stderr.
+exec 1>&2
+
+# Define color codes
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+NO_COLOR='\033[0m'
+
+# Allow .env commits if GIT_ALLOW_ENV is set
+if [ "$GIT_ALLOW_ENV" != "1" ]; then
+  # Check for .env file
+  if git diff --cached --name-only | grep -q '^\.env$'; then
+
+    # Output with limited colors
+    echo -e "${RED}Error: Attempt to commit .env file detected.${NO_COLOR}"
+    echo -e "${YELLOW}Please remove the .env file from the index by running:${NO_COLOR}"
+    echo -e "${YELLOW}git reset HEAD .env${NO_COLOR}"
+    echo -e "${YELLOW}and add .env to your .gitignore file if it's not already there.${NO_COLOR}"
+    echo -e "${YELLOW}If you really want to commit the .env file, run:${NO_COLOR}"
+    echo -e "${GREEN}GIT_ALLOW_ENV=1 git commit -m 'Committing .env file'${NO_COLOR}"
+
+    exit 1
+  fi
+fi
+
+# Continue with the commit if no .env file found or GIT_ALLOW_ENV is set
+exit 0
