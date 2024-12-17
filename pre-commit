@@ -30,8 +30,8 @@ if [ "$GIT_ALLOW_ENV" != "1" ]; then
 fi
 
 
-# Allow large files if GIT_ALLOW_LARGE_FILE is set
-if [ "$GIT_ALLOW_LARGE_FILE" != "1" ]; then
+# Allow large files if GIT_ALLOW_LARGE_FILES is set
+if [ "$GIT_ALLOW_LARGE_FILES" != "1" ]; then
   echo -e "${YELLOW}Checking for large files...${NO_COLOR}"
   LARGE_FILES_FOUND=0
 
@@ -51,7 +51,7 @@ if [ "$GIT_ALLOW_LARGE_FILE" != "1" ]; then
     echo -e "${YELLOW}You can unstage a large file using:${NO_COLOR}"
     echo -e "${GREEN}git reset HEAD <file>${NO_COLOR}"
     echo -e "${YELLOW}If you really want to commit large files, run:${NO_COLOR}"
-    echo -e "${GREEN}GIT_ALLOW_LARGE_FILE=1 git commit -m '<Commit msg>'${NO_COLOR}"
+    echo -e "${GREEN}GIT_ALLOW_LARGE_FILES=1 git commit -m '<Commit msg>'${NO_COLOR}"
     exit 1
   fi
 fi
