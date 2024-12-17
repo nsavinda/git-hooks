@@ -17,14 +17,21 @@ git config --global core.hooksPath /path/to/global/hooks
 
 ### Purpose
 - Prevent accidental commits of `.env` files to protect sensitive data.
+- Prevent large files from being committed.
 
 ### Usage
 
 #### Default Behavior
-The pre-commit hook blocks any commit containing a `.env` file.
+The pre-commit hook blocks any commit containing a `.env` file or a file larger than 5MB.
+
 
 #### Bypassing the Check
 To explicitly allow commits with `.env` files, use the following command:
 ```bash
 GIT_ALLOW_ENV=1 git commit -m "Your commit message"
+```
+
+To allow commits with large files, use the following command:
+```bash
+GIT_ALLOW_LARGE_FILES=1 git commit -m "Your commit message"
 ```
