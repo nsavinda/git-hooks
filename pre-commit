@@ -9,6 +9,9 @@ YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 NO_COLOR='\033[0m'
 
+MAX_FILE_SIZE=5120
+
+
 # Allow .env commits if GIT_ALLOW_ENV is set
 if [ "$GIT_ALLOW_ENV" != "1" ]; then
   # Check for .env file
@@ -26,5 +29,32 @@ if [ "$GIT_ALLOW_ENV" != "1" ]; then
   fi
 fi
 
-# Continue with the commit if no .env file found or GIT_ALLOW_ENV is set
+
+# Allow large files if GIT_ALLOW_LARGE_FILE is set
+if [ "$GIT_ALLOW_LARGE_FILE" != "1" ]; then
+  echo -e "${YELLOW}Checking for large files...${NO_COLOR}"
+  LARGE_FILES_FOUND=0
+
+  # Loop through staged files
+  for file in $(git diff --cached --name-only); do
+    if [ -f "$file" ]; then
+      FILE_SIZE=$(du -k "$file" | cut -f1) # Get file size in kilobytes
+      if [ "$FILE_SIZE" -gt "$MAX_FILE_SIZE" ]; then
+        echo -e "${RED}Error: File '${file}' exceeds the ${MAX_FILE_SIZE}KB size limit.${NO_COLOR}"
+        LARGE_FILES_FOUND=1
+      fi
+    fi
+  done
+
+  if [ "$LARGE_FILES_FOUND" -eq 1 ]; then
+    echo -e "${YELLOW}Please remove or reduce the size of large files before committing.${NO_COLOR}"
+    echo -e "${YELLOW}You can unstage a large file using:${NO_COLOR}"
+    echo -e "${GREEN}git reset HEAD <file>${NO_COLOR}"
+    echo -e "${YELLOW}If you really want to commit large files, run:${NO_COLOR}"
+    echo -e "${GREEN}GIT_ALLOW_LARGE_FILE=1 git commit -m '<Commit msg>'${NO_COLOR}"
+    exit 1
+  fi
+fi
+
+
 exit 0
