@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HOOKS_PATH=$(git config --get core.hooksPath)
+HOOKS_PATH=$(git config --get core.hooksPath || echo ".git/hooks")
 source "$HOOKS_PATH/modules/config"
 
 # Read the config file to determine which tests to run
