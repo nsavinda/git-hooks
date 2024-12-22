@@ -10,4 +10,4 @@ GREEN='\033[0;32m'
 NO_COLOR='\033[0m'
 
 # MAX_FILE_SIZE=5120
-MAX_FILE_SIZE=$(git config --get git-hooks.maxfilesize || echo 5120)
+MAX_FILE_SIZE=$(git config --get git-hooks.maxfilesize || echo "${GIT_MAX_FILE_SIZE:-5120}")
