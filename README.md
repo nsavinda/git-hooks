@@ -12,6 +12,12 @@ git clone https://github.com/nsavinda/git-hooks.git
 git config --global core.hooksPath $(pwd)/git-hooks/hooks
 ```
 
+### Remove Global Setup
+To remove the global setup, run the following command:
+```bash
+git config --global --unset core.hooksPath
+```
+
 ---
 
 ## Pre-commit Hook
