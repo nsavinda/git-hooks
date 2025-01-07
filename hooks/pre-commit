@@ -1,0 +1,29 @@
+#!/bin/bash
+
+HOOKS_PATH=$(git config --get core.hooksPath || echo ".git/hooks")
+source "$HOOKS_PATH/modules/config"
+
+# Read the config file to determine which tests to run
+CONFIG_FILE="$HOOKS_PATH/hooks.conf"
+
+if [ ! -f "$CONFIG_FILE" ]; then
+  echo "Config file not found, creating default config file."
+  cat <<EOL > $CONFIG_FILE
+RUN_LARGEFILE_CHECK=true
+RUN_ENV_CHECK=true
+EOL
+fi
+
+# Source the config file
+source "$CONFIG_FILE"
+
+# Run tests based on config
+if [ "$RUN_LARGEFILE_CHECK" = true ]; then
+  source $HOOKS_PATH/modules/largefile-check
+fi
+
+if [ "$RUN_ENV_CHECK" = true ]; then
+  source $HOOKS_PATH/modules/env-check
+fi
+
+exit 0

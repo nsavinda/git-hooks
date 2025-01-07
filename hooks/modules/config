@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Redirect output to stderr.
+exec 1>&2
+
+# Define color codes
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+NO_COLOR='\033[0m'
+
+# MAX_FILE_SIZE=5120
+MAX_FILE_SIZE=${GIT_MAX_FILE_SIZE:-$(git config --get git-hooks.maxfilesize || echo 5120)}

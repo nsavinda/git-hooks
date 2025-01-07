@@ -3,12 +3,13 @@
 ## Setup
 
 ### Local Project Setup
-Copy the hooks to the `.git/hooks` folder inside your project directory.
+Copy hooks folder contents to the `.git/hooks` folder inside your project directory.
 
 ### Global Setup
-To apply Git hooks globally, place the hook scripts in a designated directory and configure Git to use it:
+To apply Git hooks globally, clone this repository and configure Git to use it:
 ```bash
-git config --global core.hooksPath /path/to/global/hooks
+git clone https://github.com/nsavinda/git-hooks.git
+git config --global core.hooksPath $(pwd)/git-hooks/hooks
 ```
 
 ---
@@ -35,3 +36,12 @@ To allow commits with large files, use the following command:
 ```bash
 GIT_ALLOW_LARGE_FILES=1 git commit -m "Your commit message"
 ```
+To change maximum file size limit, use the following command:
+```bash
+# To change global limit
+git config --global git-hooks.maxFileSize 1024 # 1MB
+
+# Only for now
+GIT_MAX_FILE_SIZE=1024 git commit -m "Your commit message"
+```
+
