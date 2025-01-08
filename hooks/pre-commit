@@ -26,4 +26,6 @@ if [ "$RUN_ENV_CHECK" = true ]; then
   source $HOOKS_PATH/modules/env-check
 fi
 
+source $HOOKS_PATH/modules/dsstore-unstage
+
 exit 0
