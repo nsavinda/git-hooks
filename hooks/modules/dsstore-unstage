@@ -2,7 +2,8 @@
 
 # Unstage .DS_Store files if git-hooks.dsstoreunstage is set
 if [ "$GIT_ALLOW_DS_STORE" != "1" ]; then
-    if [ $(git config --get git-hooks.dsstoreunstage) = "1" ]; then
+    dsstoreunstage=$(git config --get git-hooks.dsstoreunstage)
+    if [ "$dsstoreunstage" ] && [ "$dsstoreunstage" = "1" ]; then    
     echo -e "${YELLOW}Checking for .DS_Store files...${NO_COLOR}"
     # Check for .DS_Store files
     if git diff --cached --name-only | grep -q '\.DS_Store$'; then
