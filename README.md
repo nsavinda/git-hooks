@@ -51,3 +51,15 @@ git config --global git-hooks.maxFileSize 1024 # 1MB
 GIT_MAX_FILE_SIZE=1024 git commit -m "Your commit message"
 ```
 
+### Other Usage
+
+#### Preventing DS_Store Files
+
+To prevent committing `.DS_Store` files, use the following command:
+```bash
+git config --global git-hooks.preventDSStore 1
+```
+To disable this feature, use the following command:
+```bash
+git config --global --unset git-hooks.preventDSStore
+```

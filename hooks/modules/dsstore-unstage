@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Unstage .DS_Store files if git-hooks.preventDSStore is set
+if [ "$GIT_ALLOW_DS_STORE" != "1" ]; then
+    preventDSStore=$(git config --get git-hooks.preventDSStore)
+    if [ "$preventDSStore" ] && [ "$preventDSStore" = "1" ]; then    
+    echo -e "${YELLOW}Checking for .DS_Store files...${NO_COLOR}"
+    # Check for .DS_Store files
+    if git diff --cached --name-only | grep -q '\.DS_Store$'; then
+        # Unstage .DS_Store files
+        git diff --cached --name-only | grep '\.DS_Store$' | xargs git reset HEAD
+        echo -e "${YELLOW}Unstaged .DS_Store files.${NO_COLOR}"
+    fi
+    fi
+fi
+
+exit 0
