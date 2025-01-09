@@ -64,3 +64,14 @@ To disable this feature, use the following command:
 ```bash
 git config --global --unset git-hooks.preventDSStore
 ```
+
+#### Adding More Secret File Names
+
+To add more secret file names to the `SECRET_FILE_NAMES` array in `hooks/hooks.conf`, open the `hooks/hooks.conf` file and add the new secret file names to the array. For example:
+```bash
+SECRET_FILE_NAMES=(".env"
+"private.key"
+"private.pem"
+"new_secret_file"
+)
+```
