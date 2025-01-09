@@ -22,11 +22,9 @@ if [ "$RUN_LARGEFILE_CHECK" = true ]; then
   source $HOOKS_PATH/modules/largefile-check
 fi
 
-if [ "$RUN_ENV_CHECK" = true ]; then
-  source $HOOKS_PATH/modules/env-check
+if [ "$RUN_SECRETFILE_CHECK" = true ]; then
+  source $HOOKS_PATH/modules/secretfile-check
 fi
-
-source $HOOKS_PATH/modules/secrets-check
 
 source $HOOKS_PATH/modules/dsstore-unstage
 

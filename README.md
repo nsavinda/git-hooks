@@ -23,19 +23,20 @@ git config --global --unset core.hooksPath
 ## Pre-commit Hook
 
 ### Purpose
-- Prevent accidental commits of `.env` files to protect sensitive data.
+- Prevent accidental commits of secret files to protect sensitive data.
 - Prevent large files from being committed.
 
 ### Usage
 
 #### Default Behavior
-The pre-commit hook blocks any commit containing a `.env` file or a file larger than 5MB.
+The pre-commit hook blocks any commit containing a predefined list of secret files or a file larger than 5MB.
 
 
 #### Bypassing the Check
-To explicitly allow commits with `.env` files, use the following command:
+
+To explicitly allow commits with secret files, use the following command:
 ```bash
-GIT_ALLOW_ENV=1 git commit -m "Your commit message"
+GIT_ALLOW_SECRET_FILES=1 git commit -m "Your commit message"
 ```
 
 To allow commits with large files, use the following command:
