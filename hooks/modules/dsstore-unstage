@@ -13,5 +13,3 @@ if [ "$GIT_ALLOW_DS_STORE" != "1" ]; then
     fi
     fi
 fi
-
-exit 0
