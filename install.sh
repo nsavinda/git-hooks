@@ -13,7 +13,14 @@ install_hooks_to_directory() {
   echo "Installing hooks to $directory_path..."
   mkdir -p "$directory_path"
   cp -r hooks "$directory_path/"
-  git config --global core.hooksPath "$directory_path/hooks"
+# Backup existing hooks path
+existing_hooks_path=$(git config --global --get core.hooksPath)
+if [ ! -z "$existing_hooks_path" ]; then
+    echo "Backing up existing hooks path: $existing_hooks_path"
+    git config --global backup.hooksPath "$existing_hooks_path"
+fi
+
+git config --global core.hooksPath "$directory_path/hooks"
   echo "Hooks installed to $directory_path and configured globally."
 }
 
