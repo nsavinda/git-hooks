@@ -20,7 +20,12 @@ if [ ! -z "$existing_hooks_path" ]; then
     git config --global backup.hooksPath "$existing_hooks_path"
 fi
 
-git config --global core.hooksPath "$directory_path/hooks"
+  # Set core.hooksPath as the original user if running with sudo
+  if [ "$EUID" -eq 0 ] && [ ! -z "$SUDO_USER" ]; then
+      sudo -u "$SUDO_USER" git config --global core.hooksPath "$directory_path/hooks"
+  else
+      git config --global core.hooksPath "$directory_path/hooks"
+  fi
   echo "Hooks installed to $directory_path and configured globally."
 }
 
