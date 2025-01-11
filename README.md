@@ -12,11 +12,22 @@ git clone https://github.com/nsavinda/git-hooks.git
 git config --global core.hooksPath $(pwd)/git-hooks/hooks
 ```
 
+### Using the Installation Script
+
+To set up the hooks globally, run the following command:
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+
 ### Remove Global Setup
 To remove the global setup, run the following command:
 ```bash
 git config --global --unset core.hooksPath
 ```
+
+
 
 ---
 
